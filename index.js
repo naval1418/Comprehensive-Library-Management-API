@@ -139,6 +139,23 @@ app.post("/author/new" , (req,res) => {
    
    })
 
+   /*
+route : /publication/new
+description : add new publication
+access : public 
+parameter : none
+methods : post 
+*/
+
+app.post("/publication/new" , (req,res) => {
+
+    const newPublication = req.body ;
+    database.publications.push(newPublication) ;
+    
+        res.json({Authors  : database.publications})
+   
+   })
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
