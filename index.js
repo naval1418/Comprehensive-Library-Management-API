@@ -5,7 +5,7 @@ const database = require('./database');
 const port = 4000;
 app.use(bodyParser.urlencoded({extended: true}));
 
-
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
      return res.json(database.books);
@@ -103,8 +103,41 @@ app.get("/publications/:specificbook" , (req,res) => {
     res.json({publicaion : pub})
 })
 
-console.log("yet to finish thge work") ;
-console.log("hello world") ;
+// Post method starts 
+
+/*
+route : /book/new
+description : add new book
+access : public 
+parameter : specificbook
+methods : post
+*/
+
+app.post("/book/new" , (req,res) => {
+
+ const newBook = req.body ;
+ database.books.push(newBook) ;
+ 
+     res.json({Books  : database.books})
+
+})
+
+/*
+route : /author/new
+description : add new author
+access : public 
+parameter : none
+methods : post 
+*/
+
+app.post("/author/new" , (req,res) => {
+
+    const newAuthor = req.body ;
+    database.authors.push(newAuthor) ;
+    
+        res.json({Authors  : database.authors})
+   
+   })
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
