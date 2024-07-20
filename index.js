@@ -1,7 +1,9 @@
 const express = require('express');
+var bodyParser = require("body-parser") ;
 const app = express();
 const database = require('./database');
 const port = 4000;
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 
@@ -101,6 +103,8 @@ app.get("/publications/:specificbook" , (req,res) => {
     res.json({publicaion : pub})
 })
 
+console.log("yet to finish thge work") ;
+console.log("hello world") ;
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
