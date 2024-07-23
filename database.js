@@ -1,9 +1,9 @@
 const authors = [
-    { id: 1, name: "J.K. Rowling", booksWritten: ["978-0747532699", "978-0439064873"] },
-    { id: 2, name: "George R.R. Martin", booksWritten: ["978-0553103540", "978-0553579901"] },
-    { id: 3, name: "J.R.R. Tolkien", booksWritten: ["978-0547928227", "978-0618640157"] },
-    { id: 4, name: "Isaac Asimov", booksWritten: ["978-0553293357", "978-0586010808"] },
-    { id: 5, name: "Arthur C. Clarke", booksWritten: ["978-0451457998", "978-0345325815"] }
+    { id: 1, name: "J.K. Rowling", books: ["978-0747532699", "9346124500"] },
+    { id: 2, name: "George R.R. Martin", books: ["978-0553103540", "978-0553579901"] },
+    { id: 3, name: "J.R.R. Tolkien", books: ["978-0547928227", "978-0618640157"] },
+    { id: 4, name: "Isaac Asimov", books: ["978-0553293357", "978-0586010808"] },
+    { id: 5, name: "Arthur C. Clarke", books: ["978-0451457998", "978-0345325815"] }
   ];
   
   const books = [
@@ -18,7 +18,7 @@ const authors = [
       category: "Fantasy"
     },
     {
-      ISBN: "978-0439064873",
+      ISBN: "9346124500",
       title: "Harry Potter and the Chamber of Secrets",
       pubDate: "1998-07-02",
       language: "English",
@@ -110,11 +110,12 @@ const authors = [
   ];
   
   const publications = [
-    { id: 1, name: "Bloomsbury", books: ["978-0747532699", "978-0439064873"] },
+    { id: 1, name: "Bloomsbury", books: ["978-0747532699", "9346124500"] },
     { id: 2, name: "Bantam Books", books: ["978-0553103540", "978-0553579901"] },
     { id: 3, name: "George Allen & Unwin", books: ["978-0547928227", "978-0618640157"] },
     { id: 4, name: "Gnome Press", books: ["978-0553293357", "978-0586010808"] },
-    { id: 5, name: "Roc", books: ["978-0451457998", "978-0345325815"] }
+    { id: 5, name: "Roc", books: ["978-0451457998", "978-0345325815"] },
+    { id: 6, name: "man of steel", books: [] },
   ];
 
 

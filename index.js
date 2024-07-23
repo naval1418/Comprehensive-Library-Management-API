@@ -103,7 +103,7 @@ app.get("/publications/:specificbook" , (req,res) => {
     res.json({publicaion : pub})
 })
 
-// Post method starts 
+// Post method starts (post man is used for the post methords)
 
 /*
 route : /book/new
@@ -116,6 +116,7 @@ methods : post
 app.post("/book/new" , (req,res) => {
 
  const newBook = req.body ;
+ 
  database.books.push(newBook) ;
  
      res.json({Books  : database.books})
@@ -155,6 +156,107 @@ app.post("/publication/new" , (req,res) => {
         res.json({Authors  : database.publications})
    
    })
+
+   // execution of put method 
+
+    /*
+route : /publication/update/book/
+description : updating books object
+access : public 
+parameter : none
+methods : put 
+*/
+
+   app.put("/publication/update/book/:isbn", (req, res) => {
+    // Update the publication
+    database.publications.forEach((pub) => {
+      if (pub.id === req.body.pubId) {
+        pub.books.push(req.params.isbn);
+      }
+    });
+  
+    // Update the book
+
+    database.books.forEach((book) => {
+      if (book.ISBN === req.params.isbn) {
+        book.publication = req.body.pubId;
+      }
+    });
+  
+    return res.json({
+      books: database.books,
+      publications: database.publications,
+      message: "Successfully executed",
+    });
+  });
+
+
+
+  //Delete method 
+
+    /*
+route : /book/delete
+description : updating books object
+access : public 
+parameter : none
+methods : Delete 
+*/
+
+app.delete("/book/delete/:isbn", (req, res) => {
+    const updatedBooks = database.books.filter((book) => {
+        return book.ISBN !== req.params.isbn; // Ensure to return a boolean value
+    });
+
+    console.log('Updated books list:', updatedBooks);
+
+    database.books = updatedBooks;
+    res.json({ books: database.books });
+});
+
+
+/*
+route : /book/delete/author
+description : deleteing author from the book and vice versa
+access : public 
+parameter : isbn, authorId
+methods : Delete 
+*/
+app.delete("/book/delete/author/:isbn/:authorId", (req, res) => {
+    // Update the book database
+    database.books.forEach((book) => {
+        if (book.ISBN === req.params.isbn) {
+            // If author is not an array, convert it to an array
+            if (!Array.isArray(book.author)) {
+                book.author = [book.author];
+            }
+            // Filter out the author ID
+            const newAuthorList = book.author.filter(
+                (eachAuthor) => eachAuthor !== parseInt(req.params.authorId)
+            );
+            // Update the book's author list
+            book.author = newAuthorList.length > 0 ? newAuthorList : null;  // Set to null if no authors left
+        }
+    });
+
+    // Update the author database
+    database.authors.forEach((eachAuthor) => {
+        if (eachAuthor.id === parseInt(req.params.authorId)) {
+            const newBookList = eachAuthor.books.filter(
+                (book) => book !== req.params.isbn
+            );
+            eachAuthor.books = newBookList;
+        }
+    });
+
+    res.json({
+        books: database.books,
+        authors: database.authors
+    });
+});
+
+
+  
+  
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
